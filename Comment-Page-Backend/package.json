@@ -1,0 +1,19 @@
+{
+  "name": "comment-page-backend",
+  "version": "1.0.0",
+  "description": "Comment Page Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Jai Samtani",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5",
+    "nodemon": "^1.19.4"
+  }
+}
