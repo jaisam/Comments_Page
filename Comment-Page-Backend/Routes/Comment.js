@@ -14,10 +14,12 @@ router.get('/', async (req, res) => {
         if (comments.length > 0) {
             res.json(comments);
         } else {
-            res.json({ msg: `No comments found!` });
+            // 404 - No comment found in database
+            res.status(404).json({ msg: `No comments found!` });
         }
     } catch (error) {
-        res.status(400).json({ msg: error.msg });
+        // 500 - System unable to find comments maybe due to Databse server not up
+        res.status(500).json({ msg: error.msg });
     }
 });
 //[end] Gets all comments
@@ -37,6 +39,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
         console.log(error);
+        // 400 -  User sent in wrong input maybe property name in req.body is wrong, maybe datatype of value in req.body is wrong
         res.status(400).json({ msg: error });
     }
 });
@@ -65,13 +68,15 @@ router.patch('/edit/:id', async (req, res) => {
             }
         );
 
-        if (updDescription.n != 0) {
+        if (updDescription.nModified != 0) {
             res.json(updDescription);
         } else {
-            res.json({ msg: `Cannot Edit comment` });
+            // 404 - No comment found in database
+            res.status(404).json({ msg: `Cannot Edit comment as comment with ${id} does not exist!` });
         }
 
     } catch (error) {
+        // 400 - User sent in wrong input. Maybe property name in req.body is wrong, maybe datatype of value in req.body is wrong
         res.status(400).json({ msg: error.msg });
     }
 });
@@ -101,10 +106,11 @@ router.patch('/reply/:id', async (req, res) => {
                 }
             }
         );
-        if (updReply.n != 0) {
+        if (updReply.nModified != 0) {
             res.json(updReply);
         } else {
-            res.json({ msg: `Cannot Add Reply` });
+            // 404 - No comment found in database
+            res.status(404).json({ msg: `Cannot Add Reply as comment with ${id} not found` });
         }
     } catch (error) {
         res.status(400).json({ msg: error.msg });
@@ -118,13 +124,15 @@ router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id.toString();
         const delComment = await Comment.deleteOne({ _id: id });
-        if (delComment.n != 0) {
+        if (delComment.deletedCount != 0) {
             res.json(delComment);
         } else {
-            res.json({ msg: `Cannot delete comment ` });
+            // 404 - No comment found in database
+            res.status(404).json({ msg: `Cannot delete comment as comment with ${id} does not exist!` });
         }
     } catch (error) {
-        res.status(400).json({ msg: error.msg });
+        // 500 - System unable to find comments maybe due to Databse server not up
+        res.status(500).json({ msg: error.msg });
     }
 });
 //[end] When delete comment is called, then this function is called.
@@ -151,13 +159,15 @@ router.patch('/:userId&:replyId', async (req, res) => {
                 multi: true
             }
         );
-        if (deleteReply.n != 0) {
+        if (deleteReply.nModified != 0) {
             res.json(deleteReply);
         } else {
-            res.json(`Cannot delete reply`);
+            // 404 - No comment found in database
+            res.status(404).json({msg : `Cannot delete reply as reply with ${id} does not exist!`});
         }
     } catch (error) {
-        res.status(400).json({ msg: error.msg });
+        // 500 - System unable to find comments maybe due to Databse server not up
+        res.status(500).json({ msg: error.msg });
     }
 });
 //[end] When delete reply is called, this function is called. Patch is used because, replies are stored as array of objects in same comment document.

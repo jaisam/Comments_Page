@@ -5,3 +5,7 @@ Commit #1 :
     B) When reply button is clicked, PATCH function adds new reply into replies array.
     C) When delete reply is clicked, Patch is used because replies are stored as array of objects in same Comment document.
 3) When delete comment is called, DELETE function is used.
+
+
+Commit #2 :
+Added status codes in GET,POST,PATCH,DELETE methods
