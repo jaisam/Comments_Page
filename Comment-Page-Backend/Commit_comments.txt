@@ -1,0 +1,7 @@
+Commit #1 :
+1) GET and POST functions workig now, db_url in .env file was wrong.
+2) Created 3 PATCH functions :
+    A) When edit button is clicked, PATCH function adds modified comment into editedDescription array so as to maintain history of edits.
+    B) When reply button is clicked, PATCH function adds new reply into replies array.
+    C) When delete reply is clicked, Patch is used because replies are stored as array of objects in same Comment document.
+3) When delete comment is called, DELETE function is used.
