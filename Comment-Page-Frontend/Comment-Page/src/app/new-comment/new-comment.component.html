@@ -18,9 +18,10 @@
     </style>
 </head>
 
-<form #commentForm="ngForm" (ngSubmit)="addComment(commentForm.value)">
-    <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
+<form [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
+    <!-- <textarea class="form-control" placeholder="write a comment..." rows="3" formControlName= "desc"></textarea> -->
+    <input type="text" formControlName= "desc">
     <br>
-    <button type="button" class="btn btn-info pull-right">Post</button>
+    <button type="button" class="btn btn-info pull-right" [disabled]="commentForm.invalid">Post</button>
     <div class="clearfix"></div>
 </form>
