@@ -1,0 +1,7 @@
+Commit #1
+1) Created 2 components :
+    a) newComment component which has text area and Share button so that User can add comment.
+    b) comment Component which displays comment data.
+2) Created Comment model.
+3) getComments service is created. HTTP GET method is implemented to fetch all comments when app is loaded.
+4) Data communication in commment component is completed.
