@@ -1,7 +1,17 @@
-// Require modules using require keyword of Express
 const mongoose = require('mongoose');
 
 // Child #1 Schema
+const DescriptionSchema = mongoose.Schema({
+    desc: {
+        type: String
+    },
+    editDate: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Child #2 Schema
 const repliesSchema = mongoose.Schema({
     userName: {
         type: String
@@ -10,24 +20,23 @@ const repliesSchema = mongoose.Schema({
         type: String,
     },
     description: {
-        type: String
+        type: [DescriptionSchema],
+        default: []
     },
-    createdDate: {
+    upvote : {
+        type : Number,
+        default : 0
+    },
+    downvote : {
+        type : Number,
+        default : 0
+    },
+    creationDate: {
         type: Date,
         default: Date.now
     }
 });
 
-// Child #2 Schema
-const editedDescriptionSchema = mongoose.Schema({
-    Description: {
-        type: String
-    },
-    editedDate: {
-        type: Date,
-        default: Date.now
-    }
-})
 
 // Parent Schema
 const commentSchema = mongoose.Schema({
@@ -39,21 +48,25 @@ const commentSchema = mongoose.Schema({
         type: String
     },
     description: {
-        type: String,
-        required: true
+        type: [DescriptionSchema],
+        default: []
     },
-    createdDate: {
-        type: Date,
-        default: Date.now
+    upvote : {
+        type : Number,
+        default : 0
+    },
+    downvote : {
+        type : Number,
+        default : 0
     },
     replies: {
         type: [repliesSchema],
         default: []
     },
-    editedDescription: {
-        type: [editedDescriptionSchema],
-        default: []
-    }
+    creationDate: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 

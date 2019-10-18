@@ -1,6 +1,7 @@
 // Require modules/models using require keyword ofExpress
 const express = require('Express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
 
 
@@ -28,7 +29,7 @@ app.listen(process.env.port, () => console.log(`Connected to port ${process.env.
 // Body Parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cors());
 
 // Importing Routes
 const commentRoute = require('./Routes/Comment');

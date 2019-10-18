@@ -10,7 +10,7 @@ const Comment = require('../Models/Comment');
 //[start] Gets all comments
 router.get('/', async (req, res) => {
     try {
-        var comments = await Comment.find().sort({ createdDate: 1 });
+        var comments = await Comment.find().sort({ creationDate: 1 });
         if (comments.length > 0) {
             res.json(comments);
         } else {
@@ -46,24 +46,24 @@ router.post('/', async (req, res) => {
 //[end] Adds a new comment
 
 
-//[start] When edit is clicked, this function is called and adds modified comment into editedDescription array so as to maintain history of edits
+//[start] When edit is clicked, this function is called and adds modified comment into description array so as to maintain history of edits
 router.patch('/edit/:id', async (req, res) => {
     try {
         var id = req.params.id.toString();
         console.log(id);
-        let edit = {};
+        let editDescription = {};
 
         // Creating dynamic object to be used in update query 
-        edit['Description'] = req.body.editedDescription.Description;
-        edit['_id'] = mongoose.Types.ObjectId();
-        edit['editedDate'] = new Date().toISOString();
+        editDescription['desc'] = req.body.description.desc;
+        editDescription['_id'] = mongoose.Types.ObjectId();
+        editDescription['editDate'] = new Date().toISOString();
 
-        console.log(edit);
+        console.log(editDescription);
         const updDescription = await Comment.updateOne(
             { _id: id },
             {
                 $push: {
-                    editedDescription: edit
+                    description : editDescription
                 }
             }
         );
@@ -90,22 +90,31 @@ router.patch('/reply/:id', async (req, res) => {
         //console.log(id);
         let reply = {};
 
-        // Creating dynamic object to be used in update query
-        reply['_id'] = mongoose.Types.ObjectId();
-        reply['userName'] = req.body.replies.userName;
-        reply['userImage'] = req.body.replies.userImage;
-        reply['description'] = req.body.replies.description;
-        reply['createdDate'] = new Date().toISOString();
+        //  Not using dynamic way as cannot create desc as object of description
+        // reply['_id'] = mongoose.Types.ObjectId();
+        // reply['userName'] = req.body.replies.userName;
+        // reply['userImage'] = req.body.replies.userImage;
+        // reply['desc'] = req.body.replies.description.desc;
+        // reply['creationDate'] = new Date().toISOString();
 
-        console.log(reply);
+        // console.log(reply);
         const updReply = await Comment.updateOne(
             { _id: id },
             {
                 $push: {
-                    replies: reply
+                    replies: {
+                        _id : mongoose.Types.ObjectId(),
+                        userName : req.body.replies.userName,
+                        userImage : req.body.replies.userImage,
+                        creationDate : new Date().toISOString(),
+                        description : {
+                            desc : req.body.replies.description.desc
+                        }
+                    }
                 }
             }
         );
+
         if (updReply.nModified != 0) {
             res.json(updReply);
         } else {
@@ -145,7 +154,7 @@ router.patch('/:userId&:replyId', async (req, res) => {
         const reply_id = req.params.replyId.toString();
         console.log('User id : ', user_id, '  |  Reply id : ', reply_id);
 
-        const deleteReply = await Comment.update(
+        const deleteReply = await Comment.updateOne(
             { _id: user_id },
             {
                 $pull: {
