@@ -10,19 +10,19 @@ export class AppComponent implements OnInit {
 
   allComments;
 
-  constructor(private getcomments: GetCommentsService) { }
+  constructor(private getCommentsService: GetCommentsService) { }
 
   ngOnInit() {
+    this.fecthAllComments();
+  }
 
-    this.getcomments.getAllComments()
+
+  fecthAllComments() {
+    this.getCommentsService.getAllComments()
       .subscribe(data => {
         this.allComments = data;
         // console.log(this.allComments[0].replies);
       });
-  }
-
-  addComment(description: any) {
-    console.log(description);
   }
 }
 

@@ -11,10 +11,7 @@ export class CommentsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //  console.log(this.comment.editedDescription[0].Description);
+      console.log(this.comment);
   }
 
-  // addNewComment(){
-  //   currentComment = document.getElementById()
-  // }
 }

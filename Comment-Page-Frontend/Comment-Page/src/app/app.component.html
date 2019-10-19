@@ -11,12 +11,10 @@
     <app-new-comment></app-new-comment>
     <hr>
     <app-comments *ngFor="let comment of allComments" [comment]="comment">
-    </app-comments>
-    <ul class="comments">
-      <span *ngFor = "let comment of allComments" >
-        <app-comments *ngFor = "let reply of comment.replies" [comment]="reply">
+      <ul class="comments">
+        <app-comments *ngFor="let reply of comment.replies" [comment]="reply">
         </app-comments>
-      </span>
-    </ul>
+      </ul>
+    </app-comments>
   </div>
 </body>

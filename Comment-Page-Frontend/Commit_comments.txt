@@ -10,5 +10,11 @@ Commit #2 :
 1) Modified newComment Component :
     a) Used ReactiveFormsModule to communicate data between html file and ts. Used formControl,formBuilder,Validator of ReactiveFormsModule.
 2) Created addComment method in get-comments service. This method has POST request.
-Pending item :
+Issue :
 Since description is array of object, how to pass desc under it?
+
+Commit #3 :
+1) Passed desc as array of object of descprition property.
+2) Modified app.component.html. Moved call to <app-comments> tag inside so that replies for particular comment are displayed.
+Issues :
+#2 not working.

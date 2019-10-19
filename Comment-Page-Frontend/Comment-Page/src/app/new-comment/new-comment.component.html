@@ -9,6 +9,7 @@
             width: 64px;
             height: 64px;
             border: 2px solid #e5e7e8;
+
         }
 
         .comment-wrapper .media-list .media {
@@ -20,7 +21,7 @@
 
 <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
     <!-- <textarea class="form-control" placeholder="write a comment..." rows="3" formControlName= "desc"></textarea> -->
-    <input type="text" formControlName= "desc">
+    <input type="text" formControlName="desc">
     <br>
     <button type="button" class="btn btn-info pull-right" [disabled]="commentForm.invalid">Post</button>
     <div class="clearfix"></div>
