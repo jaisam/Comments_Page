@@ -16,10 +16,11 @@ export class GetCommentsService {
     return this.http.get<Comment[]>(server_url);
   }
 
-  addComment(comment : Comment) : Observable<Comment>{
+  addComment(comment) : Observable<Comment>{
     const server_url = 'http://localhost:9000/comments';
-    comment.userName = "ZZZZ",
-    comment.userImage = "zzzzz",
+    comment.userName = "ZZZZ";
+    comment.userImage = "zzzzz";
+    console.log(comment);
     // comment.description[0].desc = "";
     console.log('Inside Service ||| comment ', comment );
     return this.http.post<Comment>(server_url ,comment);

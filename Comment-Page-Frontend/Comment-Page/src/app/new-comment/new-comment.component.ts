@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GetCommentsService } from '../services/get-comments.service';
-import { Comment } from '../Models/Comment';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {GetCommentsService} from '../services/get-comments.service';
+import {Comment} from '../Models/Comment';
 
 @Component({
   selector: 'app-new-comment',
@@ -24,18 +24,21 @@ export class NewCommentComponent implements OnInit {
 
   onFormSubmit() {
     this.dataSaved = false;
-    let comment = this.commentForm.value;
+    let comment = {
+      description: this.commentForm.value
+    };
+    console.log(comment);
     console.log('inside onFormSubmit  ||| comment ', comment, ' ||| dataSaved flag ', this.dataSaved);
     this.addComment(comment);
   }
 
-  addComment(comment: Comment) {
+  addComment(comment) {
     console.log('Inside new-component ||| comment ', comment, ' ||| dataSaved flag ', this.dataSaved);
     this.GetCommentsService.addComment(comment)
       .subscribe(data => {
-        this.dataSaved = true;
-        console.log('Inside subscribe ||| data ', data, ' ||| dataSaved flag ', this.dataSaved);
-      },
+          this.dataSaved = true;
+          console.log('Inside subscribe ||| data ', data, ' ||| dataSaved flag ', this.dataSaved);
+        },
         err => {
           console.log(err);
         });
