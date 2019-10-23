@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     this.getCommentsService.getAllComments()
       .subscribe(data => {
         this.allComments = data;
-        // console.log(this.allComments[0].replies);
+        //  console.log('allComments' , this.allComments);
       });
   }
 }

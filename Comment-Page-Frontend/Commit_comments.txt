@@ -18,3 +18,6 @@ Commit #3 :
 2) Modified app.component.html. Moved call to <app-comments> tag inside so that replies for particular comment are displayed.
 Issues :
 #2 not working.
+
+Commit #4 :
+1) Created common incrementVote method for upvote, downvote icons. 
