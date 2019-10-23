@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const Comment = require('../Models/Comment');
-
+const DescriptionHistory = require('../Models/DescriptionHistory');
 
 /******************************         API CALLS        ************************************/
 
 //[start] Gets all comments
 router.get('/', async (req, res) => {
     try {
-        var comments = await Comment.find().sort({ creationDate: 1 });
+        var comments = await Comment.find().populate('replies');
         if (comments.length > 0) {
             res.json(comments);
         } else {
@@ -26,14 +26,14 @@ router.get('/', async (req, res) => {
 
 
 //[start] Adds a new comment
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try {
         //console.log('req.body =>' , req.body);
-
+        console.log(req.body);
         var newComment = new Comment(req.body);
         //console.log('newComment => ' , newComment);
 
-        const savedData = await newComment.save()
+        const savedData = await newComment.save();
         console.log(savedData);
         res.json(savedData);
 
@@ -46,86 +46,47 @@ router.post('/', async (req, res) => {
 //[end] Adds a new comment
 
 
-//[start] When edit is clicked, this function is called and adds modified comment into description array so as to maintain history of edits
-router.patch('/edit/:id', async (req, res) => {
+//[start] When edit is clicked ,this function is used
+router.patch('/:commentId', async (req, res, next) => {
     try {
-        var id = req.params.id.toString();
-        console.log(id);
-        let editDescription = {};
+        const oldComment = await Comment.find({ _id: req.params.commentId });
+        console.log('oldComment', oldComment);
 
-        // Creating dynamic object to be used in update query 
-        editDescription['desc'] = req.body.description.desc;
-        editDescription['_id'] = mongoose.Types.ObjectId();
-        editDescription['editDate'] = new Date().toISOString();
+        const oldDescription = new DescriptionHistory({
+            desc: oldComment.description,
+            source_id: req.params.commentId,
+            onModel: 'Comment'
+        });
+        console.log('oldDescription', oldDescription);
 
-        console.log(editDescription);
-        const updDescription = await Comment.updateOne(
-            { _id: id },
+        const savedData = await oldDescription.save();
+        console.log('savedData', savedData);
+
+        const updatedData = await Comment.updateOne(
             {
-                $push: {
-                    description : editDescription
+                _id: req.params.commentId
+            },
+            {
+                $set: {
+                    description: req.body.description
                 }
             }
         );
+        console.log('updatedData', updatedData);
 
-        if (updDescription.nModified != 0) {
-            res.json(updDescription);
+        if (updatedData.nModified == 1) {
+            res.json(updatedData);
         } else {
             // 404 - No comment found in database
             res.status(404).json({ msg: `Cannot Edit comment as comment with ${id} does not exist!` });
         }
-
-    } catch (error) {
-        // 400 - User sent in wrong input. Maybe property name in req.body is wrong, maybe datatype of value in req.body is wrong
+    }
+    catch (error) {
         res.status(400).json({ msg: error.msg });
     }
 });
-//[end] When edit is clicked, this function is called and adds modified comment into editedDescription array so as to maintain history of edits
+//[end] When edit is clicked ,this function is used
 
-
-//[start] When reply is clicked, this function is called and adds new reply into replies array.
-router.patch('/reply/:id', async (req, res) => {
-    try {
-        var id = req.params.id.toString();
-        //console.log(id);
-        let reply = {};
-
-        //  Not using dynamic way as cannot create desc as object of description
-        // reply['_id'] = mongoose.Types.ObjectId();
-        // reply['userName'] = req.body.replies.userName;
-        // reply['userImage'] = req.body.replies.userImage;
-        // reply['desc'] = req.body.replies.description.desc;
-        // reply['creationDate'] = new Date().toISOString();
-
-        // console.log(reply);
-        const updReply = await Comment.updateOne(
-            { _id: id },
-            {
-                $push: {
-                    replies: {
-                        _id : mongoose.Types.ObjectId(),
-                        userName : req.body.replies.userName,
-                        userImage : req.body.replies.userImage,
-                        creationDate : new Date().toISOString(),
-                        description : {
-                            desc : req.body.replies.description.desc
-                        }
-                    }
-                }
-            }
-        );
-
-        if (updReply.nModified != 0) {
-            res.json(updReply);
-        } else {
-            // 404 - No comment found in database
-            res.status(404).json({ msg: `Cannot Add Reply as comment with ${id} not found` });
-        }
-    } catch (error) {
-        res.status(400).json({ msg: error.msg });
-    }
-});
-//[end] When reply is clicked, this function is called and adds new reply into replies array.
 
 
 //[start] When delete comment is called, then this function is called.
@@ -147,38 +108,49 @@ router.delete('/:id', async (req, res) => {
 //[end] When delete comment is called, then this function is called.
 
 
-//[start] When delete reply is called, this function is called. Patch is used because, replies to comment are stored as array of objects in same User.
-router.patch('/:userId&:replyId', async (req, res) => {
+router.patch('/incrementVote/:commentId', async (req, res, next) => {
     try {
-        const user_id = req.params.userId.toString();
-        const reply_id = req.params.replyId.toString();
-        console.log('User id : ', user_id, '  |  Reply id : ', reply_id);
-
-        const deleteReply = await Comment.updateOne(
-            { _id: user_id },
-            {
-                $pull: {
-                    replies: {
-                        _id: reply_id
+        const propertyName = req.query.propertyName;
+        // console.log('commentId' , req.params.commentId);
+        // console.log('propertyName' , propertyName);
+        if (propertyName === 'upvote') {
+             updatedData = await Comment.updateOne(
+                {
+                    _id: req.params.commentId
+                },
+                {
+                    $inc: {
+                        upvote: 1
                     }
                 }
-            },
-            {
-                safe: true,
-                multi: true
-            }
-        );
-        if (deleteReply.nModified != 0) {
-            res.json(deleteReply);
-        } else {
-            // 404 - No comment found in database
-            res.status(404).json({msg : `Cannot delete reply as reply with ${id} does not exist!`});
+            );
+            // console.log('upvote updated data', updatedData);
         }
-    } catch (error) {
-        // 500 - System unable to find comments maybe due to Databse server not up
-        res.status(500).json({ msg: error.msg });
+        else if (propertyName === 'downvote') {
+             updatedData = await Comment.updateOne(
+                {
+                    _id: req.params.commentId
+                },
+                {
+                    $inc: {
+                        downvote: 1
+                    }
+                }
+            );
+            // console.log('downvote updated data', updatedData); 
+        }
+        if (updatedData.nModified != 0) {
+            res.json(updatedData);
+        }
+        else {
+            res.status(500).json({ msg: `${propertyName} increment failed` });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ msg: error.msg });
     }
 });
-//[end] When delete reply is called, this function is called. Patch is used because, replies are stored as array of objects in same comment document.
+
+
 
 module.exports = router;

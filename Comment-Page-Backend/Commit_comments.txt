@@ -16,3 +16,7 @@ Then:
 When comment is created, its original description was stored in description property, editDescription was used to store modified description user does by clicking edit comment.
 Now :
 When comment is created, its original description can be found at 0th position of description array, description from 1st index onwards will be modified description user has done by clicking edit comment.
+
+Commit #4 :
+1) Seperated comment and reply model. Created DescriptionHistory model.
+2) Created upvote,downvote functions.
