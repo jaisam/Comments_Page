@@ -27,3 +27,8 @@ Commit #5 :
 2) Created Edit comment functionality. Created updFlags and updateDescription functions. 
     a) updFlags will hide paragraph and display text area.
     b) updateDescription is used for patch api.
+
+Commit #6 :
+1) Added proper comments to function.
+2) Reply button works now. Added createComponent to dynamcially load NewComponent in CommentComponent. 
+Passed parentComponent from CommentComponent to get id of comment on which reply needs to be tagged. 

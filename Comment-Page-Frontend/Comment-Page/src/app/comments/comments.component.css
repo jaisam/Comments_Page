@@ -50,3 +50,7 @@ body {
   .media-comment {
     margin-top: 20px
   }
+
+  .clickme {
+    cursor: pointer
+  }

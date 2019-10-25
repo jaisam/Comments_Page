@@ -25,6 +25,7 @@ import { NewCommentComponent } from './new-comment/new-comment.component';
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewCommentComponent]
 })
 export class AppModule { }
