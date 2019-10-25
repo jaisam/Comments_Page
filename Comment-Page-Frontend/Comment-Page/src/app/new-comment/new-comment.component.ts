@@ -12,9 +12,10 @@ import { AppComponent } from '../app.component';
 export class NewCommentComponent implements OnInit {
 
   dataSaved = false;
-  commentForm = this.formBuilder.group({
-    description: ['', [Validators.required]]
-  });
+
+  // commentForm = this.formBuilder.group({
+  //   description: ['', [Validators.required]]
+  // });
 
   constructor(private formBuilder: FormBuilder,
                  private GetCommentsService: GetCommentsService,
@@ -25,10 +26,13 @@ export class NewCommentComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFormSubmit() {
+  onFormSubmit(desc) {
     this.dataSaved = false;
-    let comment = this.commentForm.value;
-    // console.log(comment);
+    // let comment = this.commentForm.value;
+    let comment = {
+      description : desc
+    };
+    console.log(comment);
     this.addComment(comment);
   }
 

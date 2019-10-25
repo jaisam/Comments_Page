@@ -15,7 +15,7 @@ export class GetCommentsService {
     const server_url = this.base_url + '/comment';
     // console.log(server_url);
     return this.http.get<any>(server_url);
-  }
+  };
 
   addComment(comment): Observable<any> {
 
@@ -27,7 +27,8 @@ export class GetCommentsService {
 
     console.log('Inside Service', comment);
     return this.http.post<any>(server_url, comment);
-  }
+  };
+
 
   incrementVote(comment, propertyName): Observable<any> {
     let server_url;
@@ -43,5 +44,19 @@ export class GetCommentsService {
       .set('propertyName', propertyName);
 
     return this.http.patch<any>(server_url, comment, { params });
+  };
+
+
+  updateDescription(comment) :Observable<any> {
+    let server_url;
+    if (comment.type === "Comment") {
+      server_url = this.base_url + '/comment/' + comment._id;
+    }
+    else if (comment.type === "Reply") {
+      server_url = this.base_url + '/reply/' + comment._id;
+    }
+
+    console.log(server_url);
+    return this.http.patch<any>(server_url , comment);    
   }
 }

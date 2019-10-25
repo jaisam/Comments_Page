@@ -21,3 +21,9 @@ Issues :
 
 Commit #4 :
 1) Created common incrementVote method for upvote, downvote icons. 
+
+Commit #5 :
+1) Removed ngSubmit functionality as enter key on text area does not submit form. Added click event on button instead of ngSubmit.
+2) Created Edit comment functionality. Created updFlags and updateDescription functions. 
+    a) updFlags will hide paragraph and display text area.
+    b) updateDescription is used for patch api.

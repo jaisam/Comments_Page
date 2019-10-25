@@ -1,28 +1,21 @@
-<head>
-    <style type="text/css">
-        .comment-wrapper .panel-body {
-            max-height: 650px;
-            overflow: auto;
-        }
+<!-- <div>
+    <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
+        <textarea class="form-control" placeholder="write a comment..." rows="3" formControlName= "desc"></textarea>
+        <input type="text" formControlName="description">
+        <br>
+        <button type="button" class="btn btn-info pull-right" [disabled]="commentForm.invalid">Post</button>
+        <div class="clearfix"></div>
+    </form>
+</div> -->
 
-        .comment-wrapper .media-list .media img {
-            width: 64px;
-            height: 64px;
-            border: 2px solid #e5e7e8;
-
-        }
-
-        .comment-wrapper .media-list .media {
-            border-bottom: 1px dashed #efefef;
-            margin-bottom: 25px;
-        }
-    </style>
-</head>
-
-<form [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
-    <!-- <textarea class="form-control" placeholder="write a comment..." rows="3" formControlName= "desc"></textarea> -->
-    <input type="text" formControlName="description">
-    <br>
-    <button type="button" class="btn btn-info pull-right" [disabled]="commentForm.invalid">Post</button>
-    <div class="clearfix"></div>
-</form>
+<div>
+    <form>
+        <textarea class="form-control" placeholder="write a comment..." rows="3" #description></textarea>
+        <br>
+        <button type="button" class="btn btn-info pull-right" 
+            (click)="onFormSubmit(description.value)">
+            Post
+        </button>
+        <div class="clearfix"></div>
+    </form>
+</div>
