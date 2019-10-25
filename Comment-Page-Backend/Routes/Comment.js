@@ -108,6 +108,48 @@ router.delete('/:id', async (req, res) => {
 //[end] When delete comment is called, then this function is called.
 
 
+router.patch('/:commentId', async (req, res, next) => {
+    try {
+        //console.log('inside try');
+
+        const oldComment = await Comment.find({ _id: req.params.commentId });
+        console.log('oldComment', oldComment);
+
+        const oldDescription = new DescriptionHistory({
+            desc: oldComment.description,
+            source_id: req.params.commentId,
+            onModel: 'Comment'
+        });
+        console.log('oldDescription', oldDescription);
+
+        const savedData = await oldDescription.save();
+        console.log('savedData', savedData);
+
+        const updatedData = await Comment.updateOne(
+            {
+                _id: req.params.commentId
+            },
+            {
+                $set: {
+                    description: req.body.description
+                }
+            }
+        );
+        console.log('updatedData', updatedData);
+
+        if (updatedData.nModified == 1) {
+            res.json(updatedData);
+        } else {
+            // 404 - No comment found in database
+            res.status(404).json({ msg: `Cannot Edit comment as comment with ${id} does not exist!` });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ msg: error.msg });
+    }
+});
+
+
 router.patch('/incrementVote/:commentId', async (req, res, next) => {
     try {
         const propertyName = req.query.propertyName;

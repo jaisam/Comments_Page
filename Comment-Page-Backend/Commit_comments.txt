@@ -20,3 +20,6 @@ When comment is created, its original description can be found at 0th position o
 Commit #4 :
 1) Seperated comment and reply model. Created DescriptionHistory model.
 2) Created upvote,downvote functions.
+
+Commite #5 :
+1) Created edit comment route in Comment.js

@@ -107,7 +107,7 @@ router.patch('/:replyId', async (req, res, next) => {
             res.json(updatedData);
         } else {
             // 404 - No comment found in database
-            res.status(404).json({ msg: `Cannot Edit comment as comment with ${id} does not exist!` });
+            res.status(404).json({ msg: `Cannot Edit reply as reply with ${id} does not exist!` });
         }
     }
     catch (error) {
