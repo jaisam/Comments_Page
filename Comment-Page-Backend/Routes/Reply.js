@@ -1,3 +1,4 @@
+// Require modules/models using require keyword of Express
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -6,7 +7,9 @@ const Comment = require('../Models/Comment');
 const DescriptionHistory = require('../Models/DescriptionHistory');
 
 
+/******************************         API CALLS        ************************************/
 
+//[start] Adds a new reply and updated replyId into comment on whom reply is done.
 router.post('/', async (req, res, next) => {
     try {
         console.log('inside reply post');
@@ -38,7 +41,10 @@ router.post('/', async (req, res, next) => {
         res.status(400).json({ msg: error.msg });
     }
 });
+//[end] Adds a new reply and updated replyId into comment on whom reply is done.
 
+
+//[start] Deletes a reply by taking commentId and replyId.
 router.delete('/:commentId&:replyId', async (req, res, next) => {
     try {
         const deletedReply = await Reply.remove({ _id: req.params.replyId });
@@ -72,8 +78,10 @@ router.delete('/:commentId&:replyId', async (req, res, next) => {
         res.status(500).json({ msg: error.msg });
     }
 });
+//[end] Deletes a reply by taking commentId and replyId.
 
 
+//[start] Updates description of reply by taking replyId
 router.patch('/:replyId', async (req, res, next) => {
     try {
         //console.log('inside try');
@@ -114,8 +122,10 @@ router.patch('/:replyId', async (req, res, next) => {
         res.status(400).json({ msg: error.msg });
     }
 });
+//[end] Updates description of reply by taking replyId
 
 
+//[start] Increments upvote/downvote of reply by checking propertyName sent in through HttpParams()
 router.patch('/incrementVote/:replyId', async (req, res, next) => {
     try {
         const propertyName = req.query.propertyName;
@@ -158,6 +168,7 @@ router.patch('/incrementVote/:replyId', async (req, res, next) => {
         res.status(400).json({ msg: error.msg });
     }
 });
+//[end] Increments upvote/downvote of reply by checking propertyName sent in through HttpParams()
 
 
 module.exports = router;
