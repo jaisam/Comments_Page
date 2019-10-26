@@ -9,18 +9,20 @@ import { Comment } from '../Models/Comment';
 export class GetCommentsService {
   
   base_url = 'http://localhost:9000';
-  headers;
-
+  //headers;
+  token;
 
   constructor(private http: HttpClient) { 
   }
 
 
 //[start] Function that creates headers
-  createHeaders(loggedInUser) {
-    this.headers = new HttpHeaders();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Authorization', `Bearer ${loggedInUser.token}`);
+  createHeaders(headers) {
+    this.token = localStorage.getItem('userToken');
+    console.log(this.token);
+    headers.append('Content-Type', 'application/json');
+    headers.set('Authorization', `Bearer ${this.token}`);
+    console.log(headers);
   }
 //[end] Function that creates headers
 
@@ -83,8 +85,13 @@ export class GetCommentsService {
        // if type='Reply', it means description of reply needs to be updated so call patch function of reply route.
       server_url = this.base_url + '/reply/' + comment._id;
     }
-    this.createHeaders(loggedInUser);
-    let headers = this.headers;
+    this.token = localStorage.getItem('userToken');
+    this.token = `Bearer ${this.token}`;
+    console.log(this.token);
+    let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', this.token );
+     
     console.log(headers);
     return this.http.patch<any>(server_url, comment , { headers });
   }

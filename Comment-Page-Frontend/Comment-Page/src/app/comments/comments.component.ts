@@ -55,7 +55,7 @@ export class CommentsComponent implements OnInit {
     this.hideTextArea = !this.hideTextArea;
     comment.description = newDescription;
     console.log(comment);
-    console.log(this.loggedInUser);
+    // console.log(this.loggedInUser);
     this.getCommentsService.updateDescription(comment , this.loggedInUser)
       .subscribe(data => {
         console.log(data);

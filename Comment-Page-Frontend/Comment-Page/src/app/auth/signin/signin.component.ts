@@ -37,6 +37,7 @@ export class SigninComponent implements OnInit {
         this.setHidden = false;
         this.Timeout();
         this.userData.emit(data);
+        localStorage.setItem('userToken' , data.token);
       },
         error => {
           // console.log(error.error.msg);
