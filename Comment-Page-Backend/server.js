@@ -34,7 +34,9 @@ app.use(cors());
 // Importing Routes
 const commentRoute = require('./Routes/Comment');
 const replyRoute = require('./Routes/Reply');
+const userRoute = require('./Routes/userRoute');
 
 // Routes middleware
 app.use('/comment', commentRoute);
 app.use('/reply' , replyRoute);
+app.use('/User', userRoute);

@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const Comment = require('../Models/Comment');
 const DescriptionHistory = require('../Models/DescriptionHistory');
-
+const checkAuthorization = require('./middlewares/check-auth');
 /******************************         API CALLS        ************************************/
 
 //[start] Gets all comments
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 
 //[start] Adds a new comment
-router.post('/', async (req, res, next) => {
+router.post('/', checkAuthorization ,async (req, res, next) => {
     try {
         //console.log('req.body =>' , req.body);
         console.log(req.body);
@@ -47,7 +47,7 @@ router.post('/', async (req, res, next) => {
 
 
 //[start] When edit is clicked ,this function is used
-router.patch('/:commentId', async (req, res, next) => {
+router.patch('/:commentId', checkAuthorization , async (req, res, next) => {
     try {
         const oldComment = await Comment.find({ _id: req.params.commentId });
         console.log('oldComment', oldComment);
@@ -90,7 +90,7 @@ router.patch('/:commentId', async (req, res, next) => {
 
 
 //[start] When delete comment is called, then this function is called.
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkAuthorization ,async (req, res) => {
     try {
         const id = req.params.id.toString();
         const delComment = await Comment.deleteOne({ _id: id });
@@ -108,49 +108,8 @@ router.delete('/:id', async (req, res) => {
 //[end] When delete comment is called, then this function is called.
 
 
-router.patch('/:commentId', async (req, res, next) => {
-    try {
-        //console.log('inside try');
-
-        const oldComment = await Comment.find({ _id: req.params.commentId });
-        console.log('oldComment', oldComment);
-
-        const oldDescription = new DescriptionHistory({
-            desc: oldComment.description,
-            source_id: req.params.commentId,
-            onModel: 'Comment'
-        });
-        console.log('oldDescription', oldDescription);
-
-        const savedData = await oldDescription.save();
-        console.log('savedData', savedData);
-
-        const updatedData = await Comment.updateOne(
-            {
-                _id: req.params.commentId
-            },
-            {
-                $set: {
-                    description: req.body.description
-                }
-            }
-        );
-        console.log('updatedData', updatedData);
-
-        if (updatedData.nModified == 1) {
-            res.json(updatedData);
-        } else {
-            // 404 - No comment found in database
-            res.status(404).json({ msg: `Cannot Edit comment as comment with ${id} does not exist!` });
-        }
-    }
-    catch (error) {
-        res.status(400).json({ msg: error.msg });
-    }
-});
-
-
-router.patch('/incrementVote/:commentId', async (req, res, next) => {
+//[start] This function increments upvote/downvote by checking propertyName passed through HttpParameters().
+router.patch('/incrementVote/:commentId', checkAuthorization ,async (req, res, next) => {
     try {
         const propertyName = req.query.propertyName;
         // console.log('commentId' , req.params.commentId);
@@ -192,7 +151,7 @@ router.patch('/incrementVote/:commentId', async (req, res, next) => {
         res.status(400).json({ msg: error.msg });
     }
 });
-
+//[end] 
 
 
 module.exports = router;

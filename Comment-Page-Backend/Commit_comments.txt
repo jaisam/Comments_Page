@@ -26,3 +26,6 @@ Commite #5 :
 
 Commit #6 :
 1) Added proper comments in fucntions of Reply.js
+
+Commit #7 :
+1) Adding User model and user.js route and check-auth.js middleware. Modifiying .env file for jwt secret key
