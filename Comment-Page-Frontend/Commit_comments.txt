@@ -32,3 +32,6 @@ Commit #6 :
 1) Added proper comments to function.
 2) Reply button works now. Added createComponent to dynamcially load NewComponent in CommentComponent. 
 Passed parentComponent from CommentComponent to get id of comment on which reply needs to be tagged. 
+
+Commit #7 :
+1) Adding signup and Signin components and proper routes for signup/signin page and comments page

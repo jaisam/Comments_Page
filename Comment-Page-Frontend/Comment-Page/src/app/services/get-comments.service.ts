@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { Comment } from '../Models/Comment';
 
@@ -9,10 +9,20 @@ import { Comment } from '../Models/Comment';
 export class GetCommentsService {
   
   base_url = 'http://localhost:9000';
+  headers;
 
 
   constructor(private http: HttpClient) { 
   }
+
+
+//[start] Function that creates headers
+  createHeaders(loggedInUser) {
+    this.headers = new HttpHeaders();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Authorization', `Bearer ${loggedInUser.token}`);
+  }
+//[end] Function that creates headers
 
  
 //[start] this function getAllComments by calling get fucntion of comment route  
@@ -63,7 +73,7 @@ export class GetCommentsService {
 
 
 //[start] This function updates description of comment/reply by checking type property
-  updateDescription(comment): Observable<any> {
+  updateDescription(comment , loggedInUser) : Observable<any> {
     let server_url;
     if (comment.type === "Comment") {
       // if type='Comment', it means description of comment needs to be updated so call patch function of comment route.
@@ -73,8 +83,10 @@ export class GetCommentsService {
        // if type='Reply', it means description of reply needs to be updated so call patch function of reply route.
       server_url = this.base_url + '/reply/' + comment._id;
     }
-    // console.log(server_url);
-    return this.http.patch<any>(server_url, comment);
+    this.createHeaders(loggedInUser);
+    let headers = this.headers;
+    console.log(headers);
+    return this.http.patch<any>(server_url, comment , { headers });
   }
 //[end] This function updates description of comment/reply by checking type property
 

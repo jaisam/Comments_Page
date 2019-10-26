@@ -1,9 +1,19 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Comments</h5>
+  <a class="btn btn-outline-primary m-1" href="#" (click)="createComponent('Sign Up')">Sign Up</a>
+  <a class="btn btn-outline-primary m-1" href="#" (click)="createComponent('Sign In')">Sign In</a>
+</div>
+<div (createComp)="createComponent($event)">
+  <template #signUp></template>
+  <template #signIn></template>
+</div>
+
 <div class="container">
   <app-new-comment></app-new-comment>
   <hr>
-  <app-comments *ngFor="let comment of allComments" [comment]="comment">
+  <app-comments *ngFor="let comment of allComments" [comment]="comment" [loggedInUser] = "loggedInUser">
     <ul class="comments">
-      <app-comments *ngFor="let reply of comment.replies" [reply]="reply">
+      <app-comments *ngFor="let reply of comment.replies" [reply]="reply" [loggedInUser] = "loggedInUser">
       </app-comments>
     </ul>
   </app-comments>

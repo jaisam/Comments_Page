@@ -9,12 +9,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NewCommentComponent } from './new-comment/new-comment.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentsComponent,
-    NewCommentComponent
+    NewCommentComponent,
+    SignupComponent,
+    SigninComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +32,14 @@ import { NewCommentComponent } from './new-comment/new-comment.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [NewCommentComponent]
+  entryComponents: [NewCommentComponent,SignupComponent,SigninComponent]
 })
 export class AppModule { }

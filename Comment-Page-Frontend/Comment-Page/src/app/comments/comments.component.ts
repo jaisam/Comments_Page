@@ -12,6 +12,7 @@ export class CommentsComponent implements OnInit {
 
   @Input() comment;
   @Input() reply;
+  @Input() loggedInUser;
   hideParagraph = false;
   hideTextArea = true;
   // Part#1 of creating dynamic component
@@ -54,7 +55,8 @@ export class CommentsComponent implements OnInit {
     this.hideTextArea = !this.hideTextArea;
     comment.description = newDescription;
     console.log(comment);
-    this.getCommentsService.updateDescription(comment)
+    console.log(this.loggedInUser);
+    this.getCommentsService.updateDescription(comment , this.loggedInUser)
       .subscribe(data => {
         console.log(data);
         this.hideParagraph = !this.hideParagraph;
