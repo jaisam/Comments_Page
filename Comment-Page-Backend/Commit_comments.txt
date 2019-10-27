@@ -29,3 +29,7 @@ Commit #6 :
 
 Commit #7 :
 1) Adding User model and user.js route and check-auth.js middleware. Modifiying .env file for jwt secret key
+
+Commit #8 :
+1) Added checkAuthorization function in api calls of Routes/comment.js,Routes/eply.js 
+2) Made minor change in middlewares/check-auth.js

@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        const token = req.header.authorization.split(" ")[1]; //token needs to be sent in header, format of token - 'Bearer token'
+        console.log(req.headers);
+        const token = req.headers.authorization.split(" ")[1]; //token needs to be sent in header, format of token - 'Bearer token'
         const decoded = jwt.verify(token, process.env.JWT_KEY);
         req.userData = decoded;
         next();

@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 const Reply = require('../Models/Reply');
 const Comment = require('../Models/Comment');
 const DescriptionHistory = require('../Models/DescriptionHistory');
+const checkAuthorization = require('./middlewares/check-auth');
 
 
 /******************************         API CALLS        ************************************/
 
 //[start] Adds a new reply and updated replyId into comment on whom reply is done.
-router.post('/', async (req, res, next) => {
+router.post('/', checkAuthorization ,async (req, res, next) => {
     try {
         console.log('inside reply post');
 
@@ -45,7 +46,7 @@ router.post('/', async (req, res, next) => {
 
 
 //[start] Deletes a reply by taking commentId and replyId.
-router.delete('/:commentId&:replyId', async (req, res, next) => {
+router.delete('/:commentId&:replyId', checkAuthorization , async (req, res, next) => {
     try {
         const deletedReply = await Reply.remove({ _id: req.params.replyId });
         console.log('Reply deleted', deletedReply);
@@ -82,7 +83,7 @@ router.delete('/:commentId&:replyId', async (req, res, next) => {
 
 
 //[start] Updates description of reply by taking replyId
-router.patch('/:replyId', async (req, res, next) => {
+router.patch('/:replyId', checkAuthorization , async (req, res, next) => {
     try {
         //console.log('inside try');
 
@@ -126,7 +127,7 @@ router.patch('/:replyId', async (req, res, next) => {
 
 
 //[start] Increments upvote/downvote of reply by checking propertyName sent in through HttpParams()
-router.patch('/incrementVote/:replyId', async (req, res, next) => {
+router.patch('/incrementVote/:replyId', checkAuthorization , async (req, res, next) => {
     try {
         const propertyName = req.query.propertyName;
         console.log('commentId' , req.params.replyId);

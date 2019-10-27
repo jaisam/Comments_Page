@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 
 //[start] Adds a new comment
-router.post('/', checkAuthorization ,async (req, res, next) => {
+router.post('/' , checkAuthorization ,async (req, res, next) => {
     try {
         //console.log('req.body =>' , req.body);
         console.log(req.body);
