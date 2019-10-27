@@ -13,7 +13,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { TokenInterceptor } from './auth/token.interceptor';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,13 +33,14 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ReactiveFormsModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [NewCommentComponent,SignupComponent,SigninComponent]
 })
+
 export class AppModule { }

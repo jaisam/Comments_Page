@@ -29,15 +29,14 @@ export class CommentsComponent implements OnInit {
       // If comment is passed from AppComponent, then set comment.type = 'Comment' so that this type property will be used to hit comment routes
       this.comment.type = 'Comment';
       this.comment = this.comment;
-      // console.log('comment ', this.comment);
     }
     else if (this.reply) {
       // If reply is passed from AppComponent, then set reply.type = 'Reply' so that this type property will be used to hit comment routes
       // Also assigning reply object to comment object because, comments.component.html uses comment object to display data
       this.reply.type = 'Reply';
       this.comment = this.reply;
-      // console.log('reply', this.reply);
     }
+    // console.log(this.comment);
   }
 
 
@@ -54,11 +53,10 @@ export class CommentsComponent implements OnInit {
     // console.log(comment , newDescription);
     this.hideTextArea = !this.hideTextArea;
     comment.description = newDescription;
-    console.log(comment);
-    // console.log(this.loggedInUser);
-    this.getCommentsService.updateDescription(comment , this.loggedInUser)
+    // console.log(comment);
+    this.getCommentsService.updateDescription(comment)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.hideParagraph = !this.hideParagraph;
         this.appComponent.fecthAllComments();
       }, error => {

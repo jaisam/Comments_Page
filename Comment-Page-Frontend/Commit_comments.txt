@@ -35,3 +35,7 @@ Passed parentComponent from CommentComponent to get id of comment on which reply
 
 Commit #7 :
 1) Adding signup and Signin components and proper routes for signup/signin page and comments page
+
+Commit #8 :
+1) Created createHeaders function in get-comments service to add token in header manually in every api call.
+Commented it and used HttpInterceptor.
