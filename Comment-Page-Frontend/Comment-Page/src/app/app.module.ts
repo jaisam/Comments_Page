@@ -14,6 +14,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { CommentsListComponent } from './comments-list/comments-list.component';
+
 
 @NgModule({
   declarations: [
@@ -22,8 +24,9 @@ import { TokenInterceptor } from './auth/token.interceptor';
     NewCommentComponent,
     SignupComponent,
     SigninComponent,
-    LoginComponent
-  ],
+    LoginComponent,
+    CommentsListComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

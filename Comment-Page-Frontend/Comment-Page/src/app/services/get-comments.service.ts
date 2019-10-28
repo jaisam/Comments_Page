@@ -29,7 +29,7 @@ export class GetCommentsService {
   //[start] this function getAllComments by calling get fucntion of comment route  
   getAllComments(): Observable<any> {
     const server_url = this.base_url + '/comment';
-    // console.log(server_url);
+    console.log(server_url);
     return this.http.get<any>(server_url);
   };
   //[end] this function getAllComments by calling get fucntion of comment route  

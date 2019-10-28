@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
 import { GetCommentsService } from '../services/get-comments.service';
-import { AppComponent } from '../app.component';
+import { CommentsListComponent } from '../comments-list/comments-list.component';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 
 @Component({
@@ -20,18 +20,18 @@ export class CommentsComponent implements OnInit {
 
 
   constructor(private getCommentsService: GetCommentsService,
-    private appComponent: AppComponent,
+    private commentsListComponent: CommentsListComponent,
     private resolver: ComponentFactoryResolver) {
   }
 
   ngOnInit() {
     if (this.comment) {
-      // If comment is passed from AppComponent, then set comment.type = 'Comment' so that this type property will be used to hit comment routes
+      // If comment is passed from commentsListComponent, then set comment.type = 'Comment' so that this type property will be used to hit comment routes
       this.comment.type = 'Comment';
       this.comment = this.comment;
     }
     else if (this.reply) {
-      // If reply is passed from AppComponent, then set reply.type = 'Reply' so that this type property will be used to hit comment routes
+      // If reply is passed from commentsListComponent, then set reply.type = 'Reply' so that this type property will be used to hit comment routes
       // Also assigning reply object to comment object because, comments.component.html uses comment object to display data
       this.reply.type = 'Reply';
       this.comment = this.reply;
@@ -58,7 +58,7 @@ export class CommentsComponent implements OnInit {
       .subscribe(data => {
         // console.log(data);
         this.hideParagraph = !this.hideParagraph;
-        this.appComponent.fecthAllComments();
+        this.commentsListComponent.fecthAllComments();
       }, error => {
         console.log(error);
       });
@@ -70,7 +70,7 @@ export class CommentsComponent implements OnInit {
   incrementVote(comment, propertyName) {
     this.getCommentsService.incrementVote(comment, propertyName)
       .subscribe(data => {
-        this.appComponent.fecthAllComments();
+        this.commentsListComponent.fecthAllComments();
       },
         error => {
           console.log(error);

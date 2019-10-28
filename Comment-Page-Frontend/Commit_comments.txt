@@ -39,3 +39,7 @@ Commit #7 :
 Commit #8 :
 1) Created createHeaders function in get-comments service to add token in header manually in every api call.
 Commented it and used HttpInterceptor.
+
+Commit #9 :
+1) Added comment-list component to display new-comment/comments data.
+2) Routes are handled properly now.

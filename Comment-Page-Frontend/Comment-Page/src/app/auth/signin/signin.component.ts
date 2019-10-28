@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ export class SigninComponent implements OnInit {
   message;
   @Output() userData = new EventEmitter();
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, public router: Router) { }
 
   ngOnInit() {
   }
@@ -32,12 +34,13 @@ export class SigninComponent implements OnInit {
   login(User) {
     this.authService.login(User)
       .subscribe(data => {
-         console.log(data);
+        //  console.log(data);
         this.message = data.msg;
         this.setHidden = false;
         this.Timeout();
         this.userData.emit(data);
         localStorage.setItem('userToken' , data.token);
+        this.router.navigate(['comments-list']);
       },
         error => {
           // console.log(error.error.msg);

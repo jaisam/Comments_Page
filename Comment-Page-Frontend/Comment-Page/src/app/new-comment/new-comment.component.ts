@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GetCommentsService } from '../services/get-comments.service';
 import { Comment } from '../Models/Comment';
-import { AppComponent } from '../app.component';
+import { CommentsListComponent } from '../comments-list/comments-list.component';
 
 @Component({
   selector: 'app-new-comment',
@@ -19,7 +19,7 @@ export class NewCommentComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
                 private GetCommentsService: GetCommentsService,
-                  private appComponent: AppComponent) {}
+                  private commentsListComponent: CommentsListComponent) {}
 
 
   ngOnInit() {}
@@ -58,7 +58,7 @@ export class NewCommentComponent implements OnInit {
     this.GetCommentsService.addComment(comment)
       .subscribe(data => {
         this.dataSaved = true;
-        this.appComponent.fecthAllComments();
+        this.commentsListComponent.fecthAllComments();
       },
         error => {
           console.log(error);
