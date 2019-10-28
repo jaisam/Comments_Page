@@ -43,3 +43,8 @@ Commented it and used HttpInterceptor.
 Commit #9 :
 1) Added comment-list component to display new-comment/comments data.
 2) Routes are handled properly now.
+
+Commit #10:
+1) Hiding SignUp/SignIn buttons if users logins successfully. Added Logout button.
+2) Added function to LOgout button to remove token from localStorage.
+3) Textarea is cleared if user adds comment successfully.

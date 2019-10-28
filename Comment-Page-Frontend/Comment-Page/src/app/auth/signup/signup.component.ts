@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
         // console.log(data.msg);
         this.message = data.msg;
         this.setHidden = false;
-        this.Timeout();
+        // this.Timeout();
         this.router.navigate(['signin']);
       },
         error => {

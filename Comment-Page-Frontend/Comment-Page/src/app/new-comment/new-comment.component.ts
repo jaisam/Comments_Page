@@ -12,6 +12,7 @@ import { CommentsListComponent } from '../comments-list/comments-list.component'
 export class NewCommentComponent implements OnInit {
 
   dataSaved = false;
+  description;
   // parentComment is populated only when createComponent() is called to create NewCommentComponent when reply button is clicked in CommentComponent.
   // It stores data of parentComment on which reply is called.
   parentComment;
@@ -28,6 +29,7 @@ export class NewCommentComponent implements OnInit {
 //[start] Trigerred when Post button is clicked, checks if new comment needs to be added or new reply
   onFormSubmit(desc) {
     // console.log('parentComment ', this.parentComment);
+    // console.log('description' , this.description);
     this.dataSaved = false;
     let comment;
     if (this.parentComment) {
@@ -58,6 +60,7 @@ export class NewCommentComponent implements OnInit {
     this.GetCommentsService.addComment(comment)
       .subscribe(data => {
         this.dataSaved = true;
+        this.description = "";
         this.commentsListComponent.fecthAllComments();
       },
         error => {

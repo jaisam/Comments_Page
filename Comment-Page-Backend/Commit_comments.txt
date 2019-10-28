@@ -34,5 +34,5 @@ Commit #8 :
 1) Added checkAuthorization function in api calls of Routes/comment.js,Routes/eply.js 
 2) Made minor change in middlewares/check-auth.js
 
-COmmit #9 :
+Commit #9 :
 1) Added code to fetch user data in post route of Routes/Comment.js and Routes/Reply.js

@@ -51,9 +51,9 @@ export class CommentsListComponent implements OnInit {
       this.entry2.clear();
       const factory = this.resolver.resolveComponentFactory(SigninComponent);
       const componentRef = this.entry2.createComponent(factory);
-      componentRef.instance.userData.subscribe(loggedInUser => {
-        console.log(loggedInUser);
-      });  
+      // componentRef.instance.userData.subscribe(loggedInUser => {
+      //   console.log(loggedInUser);
+      // });  
     }
   };
 

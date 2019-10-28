@@ -10,10 +10,10 @@
 
 <div>
     <form>
-        <textarea class="form-control" placeholder="write a comment..." rows="3" #description></textarea>
+        <textarea class="form-control" placeholder="write a comment..." rows="3" name="description" [(ngModel)]="description"></textarea>
         <br>
         <button type="button" class="btn btn-info pull-right" 
-            (click)="onFormSubmit(description.value)">
+            (click)="onFormSubmit(description)">
             Post
         </button>
         <div class="clearfix"></div>
