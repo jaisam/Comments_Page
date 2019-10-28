@@ -15,6 +15,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { CommentsListComponent } from './comments-list/comments-list.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CommentsListComponent } from './comments-list/comments-list.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    AuthGuardService
   ],
   bootstrap: [AppComponent],
   entryComponents: [NewCommentComponent,SignupComponent,SigninComponent]

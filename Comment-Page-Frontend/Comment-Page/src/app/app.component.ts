@@ -19,13 +19,15 @@ export class AppComponent implements OnInit {
 
   hideButton(){
     console.log('inside HideButton');
-      this.hideLogOut = false;
-      this.hideSignUp = true;
-      this.hideSignIn = true;
+      this.hideLogOut = !this.hideLogOut;
+      this.hideSignUp = !this.hideSignUp;
+      this.hideSignIn = !this.hideSignIn;
     }
 
     logOut() {
+      console.log('Inside Logout');
       localStorage.removeItem('userToken');
+      this.hideButton();
     }
   }
 

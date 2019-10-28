@@ -48,3 +48,12 @@ Commit #10:
 1) Hiding SignUp/SignIn buttons if users logins successfully. Added Logout button.
 2) Added function to LOgout button to remove token from localStorage.
 3) Textarea is cleared if user adds comment successfully.
+
+Commit #10 :
+1) Created AuthGuard Service to safeguard comment-list route, but it doesnt fit into project requirements
+so commented it.
+2) Instead  of AuthGuard, added isLoggedin and is isTokenExpired validation in updateFlags,incrementVote,createComponent,onFormSubmit functions.
+To create isTokenExpired function, used JwtHelperService of '@auth0/angular-jwt' module.
+3) Did modifications to logOut() function and it is not working.
+Issue :
+logOut() function not working.

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ViewContainerRef, ComponentFactory
 import { GetCommentsService } from '../services/get-comments.service';
 import { CommentsListComponent } from '../comments-list/comments-list.component';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -21,7 +22,8 @@ export class CommentsComponent implements OnInit {
 
   constructor(private getCommentsService: GetCommentsService,
     private commentsListComponent: CommentsListComponent,
-    private resolver: ComponentFactoryResolver) {
+    private resolver: ComponentFactoryResolver,
+    private authService : AuthService) {
   }
 
   ngOnInit() {
@@ -42,8 +44,13 @@ export class CommentsComponent implements OnInit {
 
 //[start] When Edit button is clicked, this function will hide paragraph and display textarea
   updFlags(comment) {
+    if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()){
+      window.alert("Please Login to edit a comment");
+    }
+    else {
     this.hideParagraph = !this.hideParagraph;
     this.hideTextArea = !this.hideTextArea;
+    }
   };
 //[end] When Edit button is clicked, this function will hide paragraph and display textarea
 
@@ -68,6 +75,10 @@ export class CommentsComponent implements OnInit {
 
 //[start] When increment button is clicked, this function is called
   incrementVote(comment, propertyName) {
+    if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()){
+      window.alert("Please Login to increment vote");
+    }
+    else {
     this.getCommentsService.incrementVote(comment, propertyName)
       .subscribe(data => {
         this.commentsListComponent.fecthAllComments();
@@ -76,17 +87,23 @@ export class CommentsComponent implements OnInit {
           console.log(error);
         });
   }
+}
 //[end] When increment button is clicked, this function is called
 
 
 //[start] When reply button is clicked, dynamically NewCommentComponent is created and displayed
 //Part #2 of creating dynamic component
-  createComponent(parentComment) {
+  createComponent(parentComment) { 
+    if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()){
+      window.alert("Please Login to add a reply");
+    }
+    else {
     this.entry.clear();
     const factory = this.resolver.resolveComponentFactory(NewCommentComponent);
     let componentRef = this.entry.createComponent(factory);
     componentRef.instance.parentComment = parentComment;
   }
+}
 //[end] When reply button is clicked, dynamically NewCommentComponent is created and displayed
 
 

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { GetCommentsService } from '../services/get-comments.service';
 import { Comment } from '../Models/Comment';
 import { CommentsListComponent } from '../comments-list/comments-list.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-new-comment',
@@ -20,7 +21,8 @@ export class NewCommentComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
                 private GetCommentsService: GetCommentsService,
-                  private commentsListComponent: CommentsListComponent) {}
+                  private commentsListComponent: CommentsListComponent,
+                    private authService : AuthService) {}
 
 
   ngOnInit() {}
@@ -28,6 +30,10 @@ export class NewCommentComponent implements OnInit {
 
 //[start] Trigerred when Post button is clicked, checks if new comment needs to be added or new reply
   onFormSubmit(desc) {
+    if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()){
+      window.alert("Please Login to add a comment");
+    }
+    else {
     // console.log('parentComment ', this.parentComment);
     // console.log('description' , this.description);
     this.dataSaved = false;
@@ -52,6 +58,7 @@ export class NewCommentComponent implements OnInit {
     // console.log(comment);
     this.addComment(comment);
   }
+}
 //[end] Trigerred when Post button is clicked, checks if new comment needs to be added or new reply
 
 
