@@ -6,6 +6,7 @@ const Reply = require('../Models/Reply');
 const Comment = require('../Models/Comment');
 const DescriptionHistory = require('../Models/DescriptionHistory');
 const checkAuthorization = require('./middlewares/check-auth');
+const User = require('../Models/User');
 
 
 /******************************         API CALLS        ************************************/
@@ -14,10 +15,12 @@ const checkAuthorization = require('./middlewares/check-auth');
 router.post('/', checkAuthorization ,async (req, res, next) => {
     try {
         console.log('inside reply post');
+        var user = await User.findOne({ _id : req.userData.userId });
+        console.log('user', user);
 
         const reply = new Reply({
-            userName: req.body.userName,
-            userImage: req.body.userImage,
+            userName: user.firstName + ' ' + user.userData.lastName,
+            userImage: user.company,
             description: req.body.description
         });
         const savedReply = await reply.save();

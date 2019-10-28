@@ -5,6 +5,8 @@ const router = express.Router();
 const Comment = require('../Models/Comment');
 const DescriptionHistory = require('../Models/DescriptionHistory');
 const checkAuthorization = require('./middlewares/check-auth');
+const User = require('../Models/User');
+
 /******************************         API CALLS        ************************************/
 
 //[start] Gets all comments
@@ -28,10 +30,18 @@ router.get('/', async (req, res) => {
 //[start] Adds a new comment
 router.post('/' , checkAuthorization ,async (req, res, next) => {
     try {
-        //console.log('req.body =>' , req.body);
+        console.log('req.body =>' , req.body);
+        console.log('req.userData =>' , req.userData);
+        var user = await User.findOne({ _id : req.userData.userId });
+        console.log('user' ,user);
+
         console.log(req.body);
-        var newComment = new Comment(req.body);
-        //console.log('newComment => ' , newComment);
+        var newComment = new Comment({
+            userName : user.firstName + ' ' +  user.lastName,
+            userImage : user.company,
+            description : req.body.description
+        });
+        console.log('newComment => ' , newComment);
 
         const savedData = await newComment.save();
         console.log(savedData);
