@@ -36,3 +36,6 @@ Commit #8 :
 
 Commit #9 :
 1) Added code to fetch user data in post route of Routes/Comment.js and Routes/Reply.js
+
+Commit #10 :
+1) Added GET API function to get loggedInUser's data in userRoute.js
