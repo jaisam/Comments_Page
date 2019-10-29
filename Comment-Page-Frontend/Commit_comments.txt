@@ -57,3 +57,9 @@ To create isTokenExpired function, used JwtHelperService of '@auth0/angular-jwt'
 3) Did modifications to logOut() function and it is not working.
 Issue :
 logOut() function not working.
+
+Commit #11 :
+1) Modified updFlags function to check if original commentor is same as comment editor by calling GET API
+to get data of loggedInUser.
+Issue :
+logOut() function not working.

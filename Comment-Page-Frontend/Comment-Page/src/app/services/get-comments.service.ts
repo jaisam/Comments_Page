@@ -34,6 +34,11 @@ export class GetCommentsService {
   };
   //[end] this function getAllComments by calling get fucntion of comment route  
 
+  getLoggedInUser(): Observable<any>{
+    let server_url = this.base_url + '/User';
+    return this.http.get<any>(server_url);
+  }
+
 
   //[start] This function adds new comment by calling post function of comment route or new reply by calling post function of reply route
   addComment(comment): Observable<any> {
