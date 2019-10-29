@@ -4,7 +4,7 @@
   <a class="btn btn-outline-primary m-1" href="#" (click)="createComponent('Sign In')">Sign In</a> -->
   <a class="btn btn-outline-primary m-1" routerLink = "signup" [hidden] = "hideSignUp"> Sign Up </a>
   <a class="btn btn-outline-primary m-1" routerLink = "signin" [hidden] = "hideSignIn"> Sign In </a>
-  <a class="btn btn-outline-primary m-1" [hidden] = "hideLogOut" (click) = "logOut"> Log Out </a>
+  <a class="btn btn-outline-primary m-1" [hidden] = "hideLogOut" (click) = "logOut()"> Log Out </a>
 </div>
 <!-- <div (createComp)="createComponent($event)">
   <template #signUp></template>

@@ -21,6 +21,7 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
   onFormSubmit(form) {
+    console.log('Inside SignIn');
     const Email = form.value.Email
     const Password = form.value.Password;
 

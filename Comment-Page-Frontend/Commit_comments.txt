@@ -63,3 +63,6 @@ Commit #11 :
 to get data of loggedInUser.
 Issue :
 logOut() function not working.
+
+Commit #12 :
+1) logOut() function is working. Missed () while calling logout() function in app.component.html

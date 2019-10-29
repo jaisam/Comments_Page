@@ -31,7 +31,7 @@ export class CommentsListComponent implements OnInit {
     this.getCommentsService.getAllComments()
       .subscribe(data => {
         this.allComments = data;
-        //  console.log('allComments' , this.allComments);
+         console.log( this.allComments);
       });
   }
 //[end] Fetch all comments by call getAllComments function of service.

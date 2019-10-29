@@ -15,8 +15,7 @@ export class CommentsComponent implements OnInit {
   @Input() reply;
   @Input() loggedInUser;
   hideParagraph = false;
-  hideTextArea = true;
-  // Part#1 of creating dynamic component
+  hideTextArea = true;// Part#1 of creating dynamic component
   @ViewChild('newComment', { static: false, read: ViewContainerRef }) entry: ViewContainerRef;
 
 
@@ -31,12 +30,15 @@ export class CommentsComponent implements OnInit {
       // If comment is passed from commentsListComponent, then set comment.type = 'Comment' so that this type property will be used to hit comment routes
       this.comment.type = 'Comment';
       this.comment = this.comment;
+      console.log('Inside comment' , this.comment);
     }
-    else if (this.reply) {
+    if (this.reply) {
       // If reply is passed from commentsListComponent, then set reply.type = 'Reply' so that this type property will be used to hit comment routes
       // Also assigning reply object to comment object because, comments.component.html uses comment object to display data
-      this.reply.type = 'Reply';
       this.comment = this.reply;
+      this.comment.type = 'Reply';
+      console.log('Inside reply' , this.comment);
+
     }
     // console.log(this.comment);
   }
