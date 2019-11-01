@@ -1,0 +1,21 @@
+<!-- <div>
+    <form [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
+        <textarea class="form-control" placeholder="write a comment..." rows="3" formControlName= "desc"></textarea>
+        <input type="text" formControlName="description">
+        <br>
+        <button type="button" class="btn btn-info pull-right" [disabled]="commentForm.invalid">Post</button>
+        <div class="clearfix"></div>
+    </form>
+</div> -->
+
+<div>
+    <form>
+        <textarea class="form-control" placeholder="write a comment..." rows="3" name="description" [(ngModel)]="description"></textarea>
+        <br>
+        <button type="button" class="btn btn-info pull-right" 
+            (click)="onFormSubmit(description)">
+            Post
+        </button>
+        <div class="clearfix"></div>
+    </form>
+</div>

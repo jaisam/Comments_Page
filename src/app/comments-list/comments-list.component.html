@@ -1,0 +1,11 @@
+<div class="container">
+    <app-new-comment></app-new-comment>
+    <hr>
+    <app-comments *ngFor="let comment of allComments" [comment]="comment" [loggedInUser]="loggedInUser">
+      <ul class="comments">
+        <app-comments *ngFor="let reply of comment.replies" [reply]="reply" [loggedInUser]="loggedInUser">
+        </app-comments>
+      </ul>
+    </app-comments>
+  </div>
+  
