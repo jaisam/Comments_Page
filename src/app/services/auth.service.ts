@@ -17,13 +17,13 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(User): Observable<any> {
-    const server_url = this.server_base_url + 'User/login';
+    const server_url = this.server_base_url + '/User/login';
     // console.log(User, server_url);
     return this.http.post<any>(server_url, User);
   }
 
   signUp(User): Observable<any> {
-    const server_url = this.server_base_url + 'User/signup';
+    const server_url = this.server_base_url + '/User/signup';
     // console.log(server_url);
     return this.http.post<any>(server_url, User);
   }
