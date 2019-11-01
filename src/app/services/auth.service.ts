@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 export class AuthService {
 
-  server_base_url = 'http://localhost:9000/';  //process.env.server_base_url;
+  server_base_url = 'https://comment-page-backend.herokuapp.com';  //environment.base_url;
   jwtHelperService = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
