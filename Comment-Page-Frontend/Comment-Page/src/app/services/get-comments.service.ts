@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { Comment } from '../Models/Comment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetCommentsService {
 
-  base_url = 'http://localhost:9000';
+  base_url = environment.base_url;
   token;
 
   constructor(private http: HttpClient) {
@@ -29,7 +30,7 @@ export class GetCommentsService {
   //[start] this function getAllComments by calling get fucntion of comment route  
   getAllComments(): Observable<any> {
     const server_url = this.base_url + '/comment';
-    // console.log(server_url);
+    console.log(server_url);
     return this.http.get<any>(server_url);
   };
   //[end] this function getAllComments by calling get fucntion of comment route  
