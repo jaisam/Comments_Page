@@ -14,7 +14,9 @@ const routes: Routes = [
     { path : 'comments-list' ,
      component : CommentsListComponent 
       //, canActivate : [AuthGuardService] 
-    }
+    },
+    {path:"",redirectTo:"/comments-list",pathMatch:'full'},
+    {path:"**",redirectTo:"/comments-list",pathMatch:'full'}
 ];
 
 @NgModule({

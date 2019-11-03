@@ -52,9 +52,9 @@ export class GetCommentsService {
       // if it is new reply, call post route of Comment.js
       server_url = this.base_url + '/reply';
     }
-    comment.userName = "ZZZZ";
-    comment.userImage = "zzzzz";
-    // console.log(comment , server_url);
+    // comment.userName = "ZZZZ";
+    // comment.userImage = "zzzzz";
+    console.log(comment , server_url);
     // let headers = new HttpHeaders();
     // headers = this.createHeaders(headers);
     // console.log(headers);

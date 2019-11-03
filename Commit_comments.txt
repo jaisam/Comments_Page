@@ -66,3 +66,6 @@ logOut() function not working.
 
 Commit #12 :
 1) logOut() function is working. Missed () while calling logout() function in app.component.html
+
+Commit #13 :
+1) Replies are visible now after using ng-content tag.

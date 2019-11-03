@@ -34,7 +34,7 @@ export class NewCommentComponent implements OnInit {
       window.alert("Please Login to add a comment");
     }
     else {
-    // console.log('parentComment ', this.parentComment);
+    console.log('parentComment ', this.parentComment);
     // console.log('description' , this.description);
     this.dataSaved = false;
     let comment;
@@ -55,7 +55,7 @@ export class NewCommentComponent implements OnInit {
         type: 'Comment'
       }
     }
-    // console.log(comment);
+    console.log(comment);
     this.addComment(comment);
   }
 }
