@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class GetCommentsService {
 
-  // base_url = 'https://comment-page-backend.herokuapp.com' //environment.base_url;
+  // base_url = 'https://comment-page-backend.herokuapp.com'; 
   base_url = environment.base_url;
   token;
 
@@ -53,12 +53,9 @@ export class GetCommentsService {
       // if it is new reply, call post route of Comment.js
       server_url = this.base_url + '/reply';
     }
-    // comment.userName = "ZZZZ";
-    // comment.userImage = "zzzzz";
     console.log(comment , server_url);
     // let headers = new HttpHeaders();
     // headers = this.createHeaders(headers);
-    // console.log(headers);
     // return this.http.post<any>(server_url, comment , { headers });
     return this.http.post<any>(server_url, comment);
 
@@ -77,7 +74,6 @@ export class GetCommentsService {
       // if it is reply, call incrementVote route of Comment.js
       server_url = this.base_url + '/reply/incrementVote/' + comment._id;
     }
-    // console.log(server_url);
     // let headers = new HttpHeaders();
     // headers = this.createHeaders(headers);
     const params = new HttpParams()
@@ -102,7 +98,6 @@ export class GetCommentsService {
     }
     // let headers = new HttpHeaders();
     // headers = this.createHeaders(headers);
-    // console.log(headers , this.token);
     // return this.http.patch<any>(server_url, comment , { headers });
     return this.http.patch<any>(server_url, comment);
 

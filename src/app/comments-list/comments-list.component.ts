@@ -11,6 +11,7 @@ import { GetCommentsService } from '../services/get-comments.service';
 export class CommentsListComponent implements OnInit {
 
   allComments;
+  loggedInUser;
   @ViewChild('signUp', { static: true, read: ViewContainerRef }) entry1: ViewContainerRef;
   @ViewChild('signIn', { static: true, read: ViewContainerRef }) entry2: ViewContainerRef;
 

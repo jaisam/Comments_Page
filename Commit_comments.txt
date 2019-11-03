@@ -69,3 +69,8 @@ Commit #12 :
 
 Commit #13 :
 1) Replies are visible now after using ng-content tag.
+2) Made changes in package.json to use environmet.prod.ts
+
+Commit #14 :
+1) Added royuer.navigate(['signup']) so that after alert user is redirected to SignIn page in 
+comment.component.ts and new-comment.component.ts

@@ -3,6 +3,7 @@ import { GetCommentsService } from '../services/get-comments.service';
 import { CommentsListComponent } from '../comments-list/comments-list.component';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -22,7 +23,8 @@ export class CommentsComponent implements OnInit {
   constructor(private getCommentsService: GetCommentsService,
     private commentsListComponent: CommentsListComponent,
     private resolver: ComponentFactoryResolver,
-    private authService: AuthService) {
+    private authService: AuthService ,
+    private router : Router) {
   }
 
   ngOnInit() {
@@ -47,15 +49,14 @@ export class CommentsComponent implements OnInit {
   //[start] When Edit button is clicked, this function will hide paragraph and display textarea
   updFlags(comment) {
     if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()) {
-      window.alert("Please Login to edit a comment");
+        window.alert("Please Login to edit a comment");
+        this.router.navigate(['/signin']);      
     }
     else {
       this.getCommentsService.getLoggedInUser()
         .subscribe(data => {
           const loggedInUserName = data.firstName + ' ' + data.lastName;
           const commenterName = comment.userName;
-          // console.log('loggedInUserName', loggedInUserName);
-          // console.log('commenterName', commenterName);
           //checks if commenter is same as comment editor then only allow to edit
           if (commenterName === loggedInUserName) {
             this.hideParagraph = !this.hideParagraph;
@@ -94,7 +95,8 @@ export class CommentsComponent implements OnInit {
   //[start] When increment button is clicked, this function is called
   incrementVote(comment, propertyName) {
     if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()) {
-      window.alert("Please Login to increment vote");
+        window.alert("Please Login to increment vote");
+        this.router.navigate(['/signin']);
     }
     else {
       this.getCommentsService.incrementVote(comment, propertyName)
@@ -113,7 +115,8 @@ export class CommentsComponent implements OnInit {
   //Part #2 of creating dynamic component
   createComponent(parentComment) {
     if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()) {
-      window.alert("Please Login to add a reply");
+        window.alert("Please Login to add a reply");
+        this.router.navigate(['/signin']);
     }
     else {
       this.entry.clear();

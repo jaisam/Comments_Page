@@ -11,7 +11,13 @@ import { Router } from '@angular/router'
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService , private router : Router) { }
+  firstName;
+  lastName;
+  company;
+  email;
+  password;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }

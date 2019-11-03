@@ -4,6 +4,7 @@ import { GetCommentsService } from '../services/get-comments.service';
 import { Comment } from '../Models/Comment';
 import { CommentsListComponent } from '../comments-list/comments-list.component';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-comment',
@@ -22,7 +23,8 @@ export class NewCommentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
                 private GetCommentsService: GetCommentsService,
                   private commentsListComponent: CommentsListComponent,
-                    private authService : AuthService) {}
+                    private authService : AuthService,
+                      private router : Router) {}
 
 
   ngOnInit() {}
@@ -31,7 +33,8 @@ export class NewCommentComponent implements OnInit {
 //[start] Trigerred when Post button is clicked, checks if new comment needs to be added or new reply
   onFormSubmit(desc) {
     if (!this.authService.isLoggedIn() && !this.authService.isTokenExpired()){
-      window.alert("Please Login to add a comment");
+        window.alert("Please Login to add a comment");
+        this.router.navigate(['/signin']);
     }
     else {
     console.log('parentComment ', this.parentComment);

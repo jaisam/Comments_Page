@@ -13,6 +13,9 @@ export class SigninComponent implements OnInit {
 
   setHidden = true;
   message;
+  Email ;
+  Password ;
+
   // @Output() userData = new EventEmitter();
   constructor(private authService: AuthService, 
                 public router: Router, 
