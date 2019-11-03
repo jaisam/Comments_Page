@@ -9,7 +9,8 @@ import { environment } from '../../environments/environment';
 })
 export class GetCommentsService {
 
-  base_url = 'https://comment-page-backend.herokuapp.com' //environment.base_url;
+  // base_url = 'https://comment-page-backend.herokuapp.com' //environment.base_url;
+  base_url = environment.base_url;
   token;
 
   constructor(private http: HttpClient) {

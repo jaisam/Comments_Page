@@ -11,7 +11,8 @@ import { environment } from '../../environments/environment';
 
 export class AuthService {
 
-  server_base_url = 'https://comment-page-backend.herokuapp.com';  //environment.base_url;
+  // server_base_url = 'https://comment-page-backend.herokuapp.com';  //environment.base_url;
+  server_base_url = environment.base_url;
   jwtHelperService = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
